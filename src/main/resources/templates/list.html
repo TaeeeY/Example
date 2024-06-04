@@ -18,15 +18,16 @@
             <th>날짜</th>
         </tr>
 
-        <tr>
-            <td>1</td>
+        <tr th:each="list, index : ${pageResponseDTO.dtoList}">
+            <td th:text="${pageResponseDTO.getTotal()- index.index}"></td>
             <td>
-                <a href="#">게시글 제목</a>
+                <a href="#" th:text="${list.articleTitle}"></a>
             </td>
-            <td>공지사항</td>
-            <td>홍길동</td>
+            <td th:text="${list.articleCate}">공지사항</td>
+            <td th:text="${list.articleWriter}">홍길동</td>
             <td>2024.05.01 12:11:51</td>
         </tr>
+
     </table>
     
     <div class="page">
@@ -35,6 +36,10 @@
         <a href="#">2</a>
         <a href="#">3</a>
         <a href="#">다음</a>
+    </div>
+
+    <div>
+        [[${pageResponseDTO}]]
     </div>
 
 </body>

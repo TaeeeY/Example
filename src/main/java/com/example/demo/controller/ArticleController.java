@@ -2,13 +2,14 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.ArticleDTO;
 import com.example.demo.dto.PageRequestDTO;
+import com.example.demo.dto.PageResponseDTO;
 import com.example.demo.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -20,14 +21,16 @@ public class ArticleController {
     private final ArticleService articleService;
 
 
-    @PostMapping("/article/list")
-    public ResponseEntity<?> articleList(@RequestBody PageRequestDTO pageRequestDTO){
-        return articleService.articleList(pageRequestDTO);
+    @GetMapping("/list")
+    public String articleList(PageRequestDTO pageRequestDTO, Model model){
+        log.info("카테고리" + pageRequestDTO.getArticleCate());
+        PageResponseDTO pageResponseDTO = articleService.articleList(pageRequestDTO);
+        model.addAttribute("pageResponseDTO", pageResponseDTO);
+        return "/list";
     }
 
-    @PostMapping("/article/view")
-    public ResponseEntity<?> articleView(@RequestBody Map<String, Integer> request){
-        int articleNo = request.get("articleNo");
+    @GetMapping("/article/view")
+    public ResponseEntity<?> articleView(@RequestParam int articleNo){
         return articleService.articleView(articleNo);
     }
 
@@ -36,9 +39,8 @@ public class ArticleController {
         return articleService.articleWrite(articleDTO);
     }
 
-    @PostMapping("/article/delete")
-    public ResponseEntity<?> articleDelete(@RequestBody Map<String, Integer> request){
-        int articleNO = request.get("articleNo");
-        return articleService.articleDelete(articleNO);
+    @GetMapping("/article/delete")
+    public ResponseEntity<?> articleDelete(@RequestParam int articleNo){
+        return articleService.articleDelete(articleNo);
     }
 }

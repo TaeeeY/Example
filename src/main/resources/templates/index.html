@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Example</title>
@@ -8,8 +7,8 @@
 <body>
     <p class='title'>메인 페이지</p>
 
-    <a class="content" href="./list">공지사항 게시판</a>
-    <a class="content" href="./list">자유 게시판</a>
-    <a class="content" href="./list">QnA 게시판</a>
+    <a class="content" th:href="@{/list(articleCate=notice)}">공지사항 게시판</a>
+    <a class="content" th:href="@{/list(articleCate=free)}">자유 게시판</a>
+    <a class="content" th:href="@{/list(articleCate=qna)}">QnA 게시판</a>
 </body>
 </html>

@@ -12,7 +12,7 @@ import java.util.List;
 public class PageResponseDTO {
 
     private List<?> dtoList;
-    private String cate;
+    private String articleCate;
     private String type;
     private String keyword;
 
@@ -25,7 +25,7 @@ public class PageResponseDTO {
 
     @Builder
     public PageResponseDTO(PageRequestDTO pageRequestDTO, List<?> dtoList, int total){
-        this.cate = pageRequestDTO.getCate();
+        this.articleCate = pageRequestDTO.getArticleCate();
         this.type = pageRequestDTO.getType();
         this.keyword = pageRequestDTO.getKeyword();
         this.pg = pageRequestDTO.getPg();

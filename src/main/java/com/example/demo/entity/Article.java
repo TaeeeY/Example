@@ -23,5 +23,5 @@ public class Article {
     private String articleCate;
     private String articleWriter;
     @CreationTimestamp
-    private LocalDateTime articleData;
+    private LocalDateTime articleDate;
 }

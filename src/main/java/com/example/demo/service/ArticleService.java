@@ -23,9 +23,9 @@ public class ArticleService {
     private final ModelMapper modelMapper;
     private final ArticleRepository articleRepository;
 
-    public ResponseEntity<?> articleList(PageRequestDTO pageRequestDTO){
+    public PageResponseDTO articleList(PageRequestDTO pageRequestDTO){
         Pageable pageable = pageRequestDTO.getPageable("articleNo");
-        Page<Article> pageArticle = articleRepository.findByArticleCate(pageRequestDTO.getCate(), pageable);
+        Page<Article> pageArticle = articleRepository.findByArticleCate(pageRequestDTO.getArticleCate(), pageable);
 
         List<Article> articleList = pageArticle.getContent();
         int total = (int) pageArticle.getTotalElements();
@@ -35,12 +35,12 @@ public class ArticleService {
             articleDTOS.add(modelMapper.map(each, ArticleDTO.class));
         }
 
-        PageResponseDTO pageResponseDTO = PageResponseDTO.builder()
+        return PageResponseDTO.builder()
                 .pageRequestDTO(pageRequestDTO)
                 .dtoList(articleDTOS)
                 .total(total)
                 .build();
-        return ResponseEntity.ok(pageResponseDTO);
+
     }
 
     public ResponseEntity<?> articleView(int articleNo){
@@ -48,7 +48,7 @@ public class ArticleService {
         Optional<Article> optArticle = articleRepository.findById(articleNo);
         ArticleDTO articleDTO = optArticle
                 .map(article -> modelMapper.map(article, ArticleDTO.class))
-                .orElse(null); // 위치로 변환?
+                .orElse(null);
 
         return ResponseEntity.ok(articleDTO);
     }
