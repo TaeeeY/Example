@@ -17,5 +17,5 @@ public class ArticleDTO {
     private String articleContent;
     private String articleCate;
     private String articleWriter;
-    private LocalDateTime articleData;
+    private LocalDateTime articleDate;
 }
